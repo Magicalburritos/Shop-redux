@@ -1,29 +1,17 @@
-import React, { useEffect } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useDispatch, useSelector } from 'react-redux';
 
-import ProductItem from "../ProductItem";
-import { QUERY_PRODUCTS } from "../../utils/queries";
-import { useStoreContext } from "../../utils/GlobalState";
-import { UPDATE_PRODUCTS } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
-import spinner from "../../assets/spinner.gif";
+import ProductItem from '../ProductItem';
+import { QUERY_PRODUCTS } from '../../utils/queries';
+// import { useStoreContext } from "../../utils/GlobalState";
+import { UPDATE_PRODUCTS } from '../../utils/actions';
+import { idbPromise } from '../../utils/helpers';
+import spinner from '../../assets/spinner.gif';
 
 function ProductList() {
-  // const { loading, data } = useQuery(QUERY_PRODUCTS);
-
-  // const products = data?.products || [];
-
-  // function filterProducts() {
-  //   if (!currentCategory) {
-  //     return products;
-  //   }
-
-  //   return products.filter(product => product.category._id === currentCategory);
-  // }
-
-  // immediately execute the useStoreContext() function to retrieve the current
-  // global state object and the dipatch() method to update state.
-  const [state, dispatch] = useStoreContext();
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const { currentCategory } = state;
 
@@ -40,12 +28,12 @@ function ProductList() {
 
       // but let's also take each product and save it to IndexedDB using the helper function
       data.products.forEach((product) => {
-        idbPromise("products", "put", product);
+        idbPromise('products', 'put', product);
       });
       // add else if to check if `loading` is undefined in `useQuery()` Hook
     } else if (!loading) {
       // since we're offline, get all of the data from the `products` store
-      idbPromise("products", "get").then((products) => {
+      idbPromise('products', 'get').then((products) => {
         // use retrieved data to set global state for offline browsing
         dispatch({
           type: UPDATE_PRODUCTS,
