@@ -7,17 +7,10 @@ import {
   UPDATE_CURRENT_CATEGORY,
 } from '../../utils/actions';
 import { QUERY_CATEGORIES } from '../../utils/queries';
-// import { useStoreContext } from "../../utils/GlobalState";
+
 import { idbPromise } from '../../utils/helpers';
 
 function CategoryMenu() {
-  // const { data: categoryData } = useQuery(QUERY_CATEGORIES);
-  // const categories = categoryData?.categories || [];
-
-  // immediately execute the useStoreContext() function to retrieve the current
-  // global state object and the dipatch() method to update state.
-  // const [state, dispatch] = useStoreContext();
-
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -29,10 +22,7 @@ function CategoryMenu() {
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
   useEffect(() => {
-    // if categoryData exists or has changed from the response of useQuery, then run dispatch()
     if (categoryData) {
-      // execute our dispatch function with our action object indicating the type of action
-      // and the data to set our state for categories to
       dispatch({
         type: UPDATE_CATEGORIES,
         categories: categoryData.categories,
