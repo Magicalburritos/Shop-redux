@@ -8,14 +8,14 @@ import {
   UPDATE_CART_QUANTITY,
   CLEAR_CART,
   TOGGLE_CART,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   products: [],
   cart: [],
   cartOpen: false,
   categories: [],
-  currentCategory: '',
+  currentCategory: "",
 };
 
 export const reducer = (state = initialState, action) => {
